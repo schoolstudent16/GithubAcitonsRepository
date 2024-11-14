@@ -21,8 +21,4 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -tt ${{ secrets.USERNAME }}@${{ secrets.HOSTNAME }} 
-           sudo -i
-           echo "Navigating to project directory..."
-           cd /home/ec2-user/GithubAcitonsRepository
-           echo "Pulling latest changes from GitHub..."
-           git pull origin main
+           'sudo -i && echo "Navigating to project directory..." && cd /home/ec2-user/GithubAcitonsRepository && echo "Pulling latest changes from GitHub..." && git pull origin main'
