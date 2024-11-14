@@ -1,24 +1,24 @@
-# Workflowの名前。任意に設定可能
-name: EC2 auto deploy
+name: Deploy to EC2
 
-# アクションが実行されるタイミングを設定。今回はmainブランチにpushされた時。
 on:
- push:
-   branches:
-     - main
- 
-#実行される処理
+  push:
+   branches: [ main ]
 jobs:
- build:
-   # 実行環境の指定
-   runs-on: ubuntu-latest
-   steps:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: action/checkout@v2
 
-     # デプロイする
-     - name: Deploy
-       run: |
-         # SSH接続して、git pullする
-         echo "${{ secrets.DEPLOYKEY }}" > private_key
-         chmod 600 private_key
-         ssh -oStrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOSTNAME }} -i private_key "cd ~/GithubActionsRepository && git fetch github:shuncask/kanpai.git && git pull github:shuncask/kanpai.git"
-         
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.DEPLOYKEY }}
+      - name: Add SSH known hosts 
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan ${{ secrets. }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to EC2
+        run: |
+          ssh ${{ secrets.USERNAME }}@${{ secrets. }} 
+          ' cd /var/www/html && git pull origin main '
