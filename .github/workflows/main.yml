@@ -7,7 +7,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: action/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.4
@@ -16,9 +16,9 @@ jobs:
       - name: Add SSH known hosts 
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan ${{ secrets. }} >> ~/.ssh/known_hosts
+          ssh-keyscan ${{ secrets.HOSTNAME }} >> ~/.ssh/known_hosts
 
       - name: Deploy to EC2
         run: |
-          ssh ${{ secrets.USERNAME }}@${{ secrets. }} 
-          ' cd /var/www/html && git pull origin main '
+          ssh ${{ secrets.USERNAME }}@${{ secrets.HOSTNAME }} 
+          ' cd ~/GithubActionsRepository && git pull origin main '
