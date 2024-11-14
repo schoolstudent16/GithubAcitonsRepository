@@ -25,4 +25,5 @@ jobs:
           echo "Navigating to project directory..." 
           cd ~/GithubActionsRepository 
           echo "Pulling latest changes from GitHub..." 
-          git pull origin main << 'EOF'
+          git pull origin main 
+          << 'EOF'
