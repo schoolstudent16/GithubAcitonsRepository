@@ -20,7 +20,7 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -tt ${{ secrets.USERNAME }}@${{ secrets.HOSTNAME }} 
+          ssh -tt ${{ secrets.USERNAME }}@${{ secrets.HOSTNAME }} << 'EOF'
           sudo -i 
           echo "Navigating to project directory..." 
           cd ~/GithubActionsRepository 
