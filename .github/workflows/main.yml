@@ -16,11 +16,14 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan ${{ secrets.HOSTNAME }} >> ~/.ssh/known_hosts
       - name: Deploy to EC2
+        env:
+          SSH_USER: ${{ secrets.USERNAME }}
+          SSH_HOST: ${{ secrets.HOSTNAME }}
         run: |
-          ssh -tt ${{ secrets.USERNAME }}@${{ secrets.HOSTNAME }} <<'EOF'
+          ssh -tt "${SSH_USER}@${SSH_HOST}" <<'EOF'
           sudo -i
           echo "Navigating to project directory..."
           cd ~/GithubActionsRepository
           echo "Pulling latest changes from GitHub..."
           git pull origin main
-EOF
+          EOF
