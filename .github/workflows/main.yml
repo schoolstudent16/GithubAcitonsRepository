@@ -26,4 +26,6 @@ jobs:
           cd /home/ec2-user/GithubAcitonsRepository
           echo "Pulling latest changes from GitHub..."
           git pull origin main
+          exit
+          exit
           EOF
