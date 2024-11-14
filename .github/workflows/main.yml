@@ -20,5 +20,5 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -t ${{ secrets.USERNAME }}@${{ secrets.HOSTNAME }} 
+          ssh -tt ${{ secrets.USERNAME }}@${{ secrets.HOSTNAME }} 
           ' cd ~/GithubAcitonsRepository && git pull origin main '
