@@ -21,4 +21,4 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh ${{ secrets.USERNAME }}@${{ secrets.HOSTNAME }} 
-          ' cd ~/GithubActionsRepository && git pull origin main '
+          ' cd ~/GithubAcitonsRepository && git pull origin main '
