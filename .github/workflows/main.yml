@@ -23,7 +23,7 @@ jobs:
           ssh -tt "${SSH_USER}@${SSH_HOST}" <<'EOF'
           sudo -i
           echo "Navigating to project directory..."
-          cd ~/GithubActionsRepository
+          cd /home/ec2-user/GithubAcitonsRepository
           echo "Pulling latest changes from GitHub..."
           git pull origin main
           EOF
