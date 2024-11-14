@@ -1,14 +1,12 @@
 name: Deploy to EC2
-
 on:
   push:
-   branches: [ main ]
+    branches: [ main ]
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.4
         with:
@@ -17,13 +15,17 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan ${{ secrets.HOSTNAME }} >> ~/.ssh/known_hosts
-
       - name: Deploy to EC2
+        env:
+          SSH_USER: ${{ secrets.USERNAME }}
+          SSH_HOST: ${{ secrets.HOSTNAME }}
         run: |
-          ssh -tt ${{ secrets.USERNAME }}@${{ secrets.HOSTNAME }} << 'EOF'
+          ssh -tt "${SSH_USER}@${SSH_HOST}" <<'EOF'
           sudo -i
           echo "Navigating to project directory..."
           cd /home/ec2-user/GithubAcitonsRepository
           echo "Pulling latest changes from GitHub..."
           git pull origin main
-          EOF 
+          exit
+          exit
+          EOF
